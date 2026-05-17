@@ -103,18 +103,6 @@ If you use this code in published work, please cite:
 > control of prefrontal neural timescales by parietal cortex.
 > *Nature Communications*. https://doi.org/10.1038/s41467-026-70326-1
 
-BibTeX:
-
-```bibtex
-@article{soyuhos2026selective,
-  author  = {Soyuhos, O. and Zirnsak, M. and Chaudhuri, R. and Chen, X.},
-  title   = {Selective control of prefrontal neural timescales by parietal cortex},
-  journal = {Nature Communications},
-  year    = {2026},
-  doi     = {10.1038/s41467-026-70326-1},
-}
-```
-
 ---
 
 **Author:** Orhan Soyuhos

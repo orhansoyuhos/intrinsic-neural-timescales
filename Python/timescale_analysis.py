@@ -100,7 +100,7 @@ random.seed(seed_n)
 # 
 # Pipeline helpers live in the local `helpers/` package (mirrors the MATLAB `helper_fun/` layout). Run the notebook from the `Python/` folder so `helpers` is importable.
 
-# In[7]:
+# In[ ]:
 
 
 from helpers import (
@@ -118,7 +118,7 @@ from helpers import (
 
 # # Import the dataset
 
-# In[8]:
+# In[ ]:
 
 
 # Load the .mat file
@@ -132,7 +132,7 @@ print(f'(Neurons, Conditions) --> {neural_data.shape}')
 
 # ## Calculate spike counts for control condition
 
-# In[9]:
+# In[ ]:
 
 
 trial_start, trial_end = -300, 1000 
@@ -161,7 +161,7 @@ print(f'(Neurons, Trials, Time points) --> {spike_counts.shape}')
 
 # ## Select baseline period
 
-# In[10]:
+# In[ ]:
 
 
 baseline_start, baseline_end = 0, 30 # The first 300 ms 
@@ -171,7 +171,7 @@ print(f'(Neurons, Trials, Time points) --> {baseline_spike.shape}')
 
 # ## Demean data
 
-# In[11]:
+# In[ ]:
 
 
 # 'trials' or 1: Demean across trials.
@@ -182,7 +182,7 @@ baseline_spike = demean_neural_data(baseline_spike, axis='trials')
 
 # # Autocorrelation
 
-# In[12]:
+# In[ ]:
 
 
 # Depends on the length of the baseline period
@@ -199,19 +199,19 @@ ac.shape, ac_log.shape
 
 # ## Figures
 
-# In[13]:
+# In[ ]:
 
 
 default_fig_settings()
 
 
-# In[14]:
+# In[ ]:
 
 
 plot_autocorr_trials(region_name, monkey_name, ac_log, 'Control', bin_size)
 
 
-# In[15]:
+# In[ ]:
 
 
 each_neuron_autocorr(ac, region_name, monkey_name, bin_size)
@@ -221,7 +221,7 @@ each_neuron_autocorr(ac, region_name, monkey_name, bin_size)
 
 # ## Individual fits
 
-# In[16]:
+# In[ ]:
 
 
 # Ideally R2 threshold has to be at least 0.3. 
@@ -232,7 +232,7 @@ tau_values, r2_control, aics_control, bics_control = fit_exponential_decay(ac, b
 
 # ## R2 values
 
-# In[17]:
+# In[ ]:
 
 
 plot_r_squared_values(r2_control, 'Control', bins=50, r2_threshold=r2_threshold)
@@ -240,13 +240,13 @@ plot_r_squared_values(r2_control, 'Control', bins=50, r2_threshold=r2_threshold)
 
 # ## Timescale values
 
-# In[18]:
+# In[ ]:
 
 
 plot_tau_values(tau_values, 'Control', bins=20)
 
 
-# In[19]:
+# In[ ]:
 
 
 get_ipython().system('jupyter nbconvert --to script timescale_analysis.ipynb')

@@ -62,7 +62,8 @@ function [tau, r2, aics, bics] = fit_exponential_decay(ac, bin_size, varargin)
         error("Invalid model_type. Choose 'single' or 'double'.");
     end
     
-    fit_opts = fitoptions('Method', 'NonlinearLeastSquares', 'StartPoint', p0, 'Lower', bounds_lower, 'Upper', bounds_upper);
+    fit_opts = fitoptions('Method', 'NonlinearLeastSquares', 'StartPoint', p0, 'Lower', bounds_lower, 'Upper', bounds_upper, ...
+        'TolFun', 1.49e-8, 'TolX', 1.49e-8, 'MaxFunEvals', 10000, 'MaxIter', 5000);
 
     % --- Initialization ---
     num_neurons = size(ac_, 1);

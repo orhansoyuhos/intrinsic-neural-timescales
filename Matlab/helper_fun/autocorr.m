@@ -28,8 +28,10 @@ function stat = autocorr(data, maxTimeLag)
     [n_neurons, n_trials, n_timepoints] = size(data);
     
     if nargin < 2 || isempty(maxTimeLag)
-        maxTimeLag = n_timepoints - 1;
+        maxTimeLag = n_timepoints;
     end
+
+    maxTimeLag = min(maxTimeLag, n_timepoints - 1);
 
     % Pre-allocate result matrices
     stat.autocorr = zeros(n_neurons, maxTimeLag + 1);
@@ -64,11 +66,10 @@ function stat = autocorr(data, maxTimeLag)
             positive_lags = corr_norm(zero_lag_index : zero_lag_index + maxTimeLag);
             
             % Normalize by the zero-lag value to ensure it starts at 1
-            if positive_lags(1) ~= 0
-                autocorr_perNeuron = positive_lags / positive_lags(1);
-            else
-                autocorr_perNeuron = positive_lags; % Avoid division by zero
+            if positive_lags(1) == 0
+                error('Zero-lag correlation is zero. Cannot normalize.');
             end
+            autocorr_perNeuron = positive_lags / positive_lags(1);
         else
             % If total energy is zero, correlation is undefined.
             autocorr_perNeuron = zeros(1, maxTimeLag + 1);
@@ -77,9 +78,10 @@ function stat = autocorr(data, maxTimeLag)
         % Store the results for the current neuron
         stat.autocorr(i_neuron, :) = autocorr_perNeuron;
         
-        % Suppress warning for log(0), which correctly results in -Inf
+        ac_real = real(autocorr_perNeuron);
+        ac_real(ac_real < 0) = NaN;
         warning('off', 'MATLAB:log10:logOfZero');
-        stat.autocorr_log(i_neuron, :) = log10(autocorr_perNeuron);
+        stat.autocorr_log(i_neuron, :) = log10(ac_real);
         warning('on', 'MATLAB:log10:logOfZero');
     end
 end

@@ -109,7 +109,7 @@ disp('Data demeaned across trials.');
 %% Autocorrelation
 % -------------------------------------------------------------------------
 % Calculate the autocorrelation for the baseline spiking activity.
-maxTimeLag_bins = size(baseline_spike, 3) - 1;
+maxTimeLag_bins = size(baseline_spike, 3);
 
 % Call the autocorrelation function
 stat = autocorr(baseline_spike, maxTimeLag_bins);
